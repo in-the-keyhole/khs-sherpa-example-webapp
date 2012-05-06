@@ -1,5 +1,8 @@
 package com.khs.example.endpoints;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import com.khs.sherpa.annotation.Endpoint;
 import com.khs.sherpa.annotation.Param;
 
@@ -15,6 +18,22 @@ public class TestService {
 	public Result add(@Param(name="x_value") double x, @Param(name="y_value") double y) {
 		return new Result(x + y);
 	}
+	
+	public Result diffDates(@Param(name="begin") Date begin,@Param(name="end") Date end) {
+		
+		Calendar cal1 = Calendar.getInstance();
+		cal1.setTime(begin);
+		
+		Calendar cal2 = Calendar.getInstance();
+		cal2.setTime(end);
+		
+		int diff = cal2.get(Calendar.DAY_OF_YEAR) - cal1.get(Calendar.DAY_OF_YEAR);
+		return new Result("# days between dates = " + diff );
+	
+	}
+	
+	
+	
 		
 	class Result {	
 		public Result(Object o) {

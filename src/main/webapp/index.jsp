@@ -109,7 +109,7 @@
 
 				$("#add").click(
 						function() {
-							service = $("#testendpoint").val();
+							service = $("#addendpoint").val();
 							method = $("#addmethod").val();
 							x = $("#x").val();
 							y = $("#y").val();
@@ -119,6 +119,31 @@
 							return false;
 						});
 	
+				$("#hw").click(
+						function() {
+							service = $("#hwendpoint").val();
+							method = $("#hwaction").val();
+							url = "sherpa?endpoint=" + service + "&action="
+									+ method;
+							callServerEndpoint(url, "#output");
+							return false;
+						});
+				
+				$("#dates").click(
+						function() {
+							service = $("#datesendpoint").val();
+							method = $("#datesaction").val();
+							date1 = $("#date1").val();
+							date2 = $("#date2").val();
+							url = "sherpa?endpoint=" + service + "&action="
+									+ method + "&start ="+date1+"&end= "+date2;
+							callServerEndpoint(url, "#output");
+							return false;
+						});
+				
+				
+				
+				
 				
 				$("#authenticate").click(
 						function() {
@@ -154,7 +179,7 @@
    <!--  JSON Results  -->
 	<div style="float: right">
 		JSON Results <br />
-		<textarea id="output" cols="80" rows="8"></textarea>
+		<textarea id="output" cols="80" rows="20"></textarea>
 	</div>
 
    <!-- ENDPOINT Examples -->
@@ -189,7 +214,7 @@
 
 		</br> <b>Add two numbers</b> </br>
 
-			@Endpoint Service class <input type="input" id="testendpoint" name="endpoint" size="50" value="TestService" />
+			@Endpoint Service class <input type="input" id="addendpoint" name="endpoint" size="50" value="TestService" />
 				 </br>
 			 Method <input type="input" id="addmethod" name="method" size="50" value="add" /> 
 			    </br>
@@ -205,12 +230,30 @@
 		<form enctype="multipart/form-data" method="get"
 			action="SherpaServlet">
 
-			@Endpoint Service class <input type="input" name="endpoint" size="50"
-				value="TestService" /> </br> Method Name <input type="input"
-				name="action" size="50" value="helloWorld" /> </br> <input type="submit"
-				name="submit" />
+			@Endpoint Service class <input type="input" id="hwendpoint" name="hwendpoint" size="50" value="TestService" /> 
+				</br> Method Name
+				 <input type="input" id="hwaction" name="hwaction" size="50" value="helloWorld" /> 
+				 </br> <input type="submit" id="hw" name="submit" />
 
 		</form>
+		
+		
+		<!-- Number days between two dates -->
+
+		</br> <b>Number days between two dates</b> </br>
+
+			@Endpoint Service class <input type="input" id="datesendpoint" name="endpoint" size="50" value="TestService" />
+				 </br>
+			 Method <input type="input" id="datesaction" name="datesaction" size="50" value="diffDates" /> 
+			    </br>
+			Number 1 <input type="input" id="date1" name="date1" size="50" />
+			      </br>
+			Number 2 <input type="input" id="date2" name=date2" size="50" />
+			     </br> 
+			<input id="dates" type="submit" name="submit" />
+
+		<br />
+		
 		
 		
 
@@ -221,7 +264,7 @@
 			Method <input id="action" type="input" name="action" size="50"
 				value="authenticate" readonly="true" /> </br> User id <input id="userid"
 				type="input" name="userid" size="50"
-				value="dpitt@keyholesoftware.com" /> </br> Password <input id="password"
+				value="dpitt" /> </br> Password <input id="password"
 				type="input" name="password" size="50" value="password" /> </br> <input
 				id="authenticate" type="submit" name="submit" />
 		</form>
