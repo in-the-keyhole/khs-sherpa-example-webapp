@@ -19,19 +19,13 @@ public class TestService {
 		return new Result(x + y);
 	}
 	
-	public Result diffDates(@Param(name="begin") Date begin,@Param(name="end") Date end) {
+	public Result addDays(@Param(name="date") Date date,@Param(name="days") int days) {
 		
 		Calendar cal1 = Calendar.getInstance();
-		cal1.setTime(begin);
-		
-		Calendar cal2 = Calendar.getInstance();
-		cal2.setTime(end);
-		
-		int diff = cal2.get(Calendar.DAY_OF_YEAR) - cal1.get(Calendar.DAY_OF_YEAR);
-		return new Result("# days between dates = " + diff );
-	
+		cal1.setTime(date);
+		cal1.add(Calendar.DAY_OF_YEAR, days );
+		return new Result((cal1.get(Calendar.MONTH)+1)+"-"+cal1.get(Calendar.DAY_OF_MONTH)+"-"+cal1.get(Calendar.YEAR));	
 	}
-	
 	
 	
 		

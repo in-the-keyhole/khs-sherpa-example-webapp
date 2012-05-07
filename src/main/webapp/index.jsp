@@ -133,10 +133,10 @@
 						function() {
 							service = $("#datesendpoint").val();
 							method = $("#datesaction").val();
-							date1 = $("#date1").val();
-							date2 = $("#date2").val();
+							date = $("#date").val();
+							days = $("#days").val();
 							url = "sherpa?endpoint=" + service + "&action="
-									+ method + "&start ="+date1+"&end= "+date2;
+									+ method + "&date="+date+"&days="+days;
 							callServerEndpoint(url, "#output");
 							return false;
 						});
@@ -218,9 +218,9 @@
 				 </br>
 			 Method <input type="input" id="addmethod" name="method" size="50" value="add" /> 
 			    </br>
-			Number 1 <input type="input" id="x" name="x" size="50" />
+			Number 1 <input type="input" id="x" name="x" size="50" value="100.00" />
 			      </br>
-			Number 2 <input type="input" id="y" name="y" size="50" />
+			Number 2 <input type="input" id="y" name="y" size="50" value="250.00" />
 			     </br> 
 			<input id="add" type="submit" name="submit" />
 
@@ -238,17 +238,17 @@
 		</form>
 		
 		
-		<!-- Number days between two dates -->
+		<!-- Add days to a date -->
 
-		</br> <b>Number days between two dates</b> </br>
+		</br> <b>Add days to a date</b> </br>
 
 			@Endpoint Service class <input type="input" id="datesendpoint" name="endpoint" size="50" value="TestService" />
 				 </br>
-			 Method <input type="input" id="datesaction" name="datesaction" size="50" value="diffDates" /> 
+			 Method <input type="input" id="datesaction" name="datesaction" size="50" value="addDays" /> 
 			    </br>
-			Number 1 <input type="input" id="date1" name="date1" size="50" />
+			Date <input type="input" id="date" name="date" size="50" value="04/05/2012"/>
 			      </br>
-			Number 2 <input type="input" id="date2" name=date2" size="50" />
+			Days to add <input type="input" id="days" name=days" size="50" value="365"/>
 			     </br> 
 			<input id="dates" type="submit" name="submit" />
 
