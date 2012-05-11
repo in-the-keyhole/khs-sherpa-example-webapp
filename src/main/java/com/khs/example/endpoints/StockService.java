@@ -2,6 +2,8 @@ package com.khs.example.endpoints;
 
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.khs.sherpa.annotation.Endpoint;
 import com.khs.sherpa.annotation.Param;
@@ -61,6 +63,26 @@ public class StockService {
 
 		return stock;
 	}
+	
+	
+	public List<Stock> quotes(@Param(name = "ticker1") String ticker1,@Param(name = "ticker2") String ticker2) {
+
+	    List results = new ArrayList<Stock>();
+
+	    results.add(quote(ticker1));
+	    results.add(quote(ticker2));
+
+		return results;
+	}
+	
+	
+	public List<Stock> test(@Param(name = "tickers") List<Stock> tickers) {
+	
+		return tickers;
+		
+	}
+	
+	
 	
 	
 }

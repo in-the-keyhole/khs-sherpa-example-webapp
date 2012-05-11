@@ -3,6 +3,7 @@ package com.khs.example.endpoints;
 import java.util.Calendar;
 import java.util.Date;
 
+
 import com.khs.sherpa.annotation.Endpoint;
 import com.khs.sherpa.annotation.Param;
 
@@ -19,16 +20,39 @@ public class TestService {
 		return new Result(x + y);
 	}
 	
-	public Result addDays(@Param(name="date") Date date,@Param(name="days") int days) {
+	public Result diffDates(@Param(name="begin") Date begin,@Param(name="end") Date end) {
 		
 		Calendar cal1 = Calendar.getInstance();
-		cal1.setTime(date);
-		cal1.add(Calendar.DAY_OF_YEAR, days );
-		return new Result((cal1.get(Calendar.MONTH)+1)+"-"+cal1.get(Calendar.DAY_OF_MONTH)+"-"+cal1.get(Calendar.YEAR));	
+		cal1.setTime(begin);
+		
+		Calendar cal2 = Calendar.getInstance();
+		cal2.setTime(end);
+		
+		int diff = cal2.get(Calendar.DAY_OF_YEAR) - cal1.get(Calendar.DAY_OF_YEAR);
+		return new Result("# days between dates = " + diff );
+	
+	}
+	
+	public Result calendar(@Param(name="cal") Calendar cal) {
+		return new Result(cal);
+	}
+	
+	public Result time(@Param(name="cal", format="hh:mm:ss a") Calendar cal) {
+		return new Result(cal);
 	}
 	
 	
+	public Result bool(@Param(name="bool") boolean bool) {
 		
+		return new Result("The Answer is "+(bool?"YES":"NO"));
+		
+	}
+	
+	
+	
+	
+	
+	
 	class Result {	
 		public Result(Object o) {
 			result = o;

@@ -156,6 +156,33 @@
 							return false;
 						});
 
+				
+				$("#sessions").click(
+						function() {
+							method = $("#sessionsaction").val();
+							userid = $("#adminuserid").val();
+							password = $("#adminpassword").val();
+							url = "sherpa?action=" + method + "&userid="
+									+ userid + "&password=" + password;
+							callServerEndpoint(url, "#output");
+							return false;
+						});
+				
+				
+				$("#deactivate").click(
+						function() {
+							method = $("#deactivateaction").val();
+							userid = $("#deactivateadminuserid").val();
+							password = $("#deactivateadminpassword").val();
+							deactivate = $("#deactivateid").val();
+							url = "sherpa?action=" + method + "&userid="
+									+ userid + "&password=" + password + "&deactivate="+deactivate;
+							callServerEndpoint(url, "#output");
+							return false;
+						});
+				
+				
+				
 				$("#authenticated-endpoint").click(
 						function() {
 							endpoint = $("#endpoint-a").val();
@@ -253,10 +280,6 @@
 			<input id="dates" type="submit" name="submit" />
 
 		<br />
-		
-		
-		
-
 
 		<br /> <b>Get Authentication Token</b></br>
 		<form enctype="multipart/form-data" method="get"
@@ -268,6 +291,27 @@
 				type="input" name="password" size="50" value="password" /> </br> <input
 				id="authenticate" type="submit" name="submit" />
 		</form>
+		
+		<br /> <b>User Sessions</b></br>
+		<form enctype="multipart/form-data" method="get" action="sherpa">
+			Method <input id="sessionsaction" type="input" name="action" size="50"
+				value="sessions" readonly="true" />
+				 </br> Admin User id <input id="adminuserid" type="input" name="userid" size="50" value="dpitt" />
+				  </br> Admin Password <input id="adminpassword" type="input" name="password" size="50" value="password" /> 
+				  </br> <input id="sessions" type="submit" name="submit" />
+		</form>
+		
+		<br /> <b>Deactive Userid</b></br>
+		<form enctype="multipart/form-data" method="get" action="sherpa">
+			Method <input id="deactivateaction" type="input" name="action" size="50"
+				value="deactivateUser" readonly="true" />
+				 </br> Admin User id <input id="deactivateadminuserid" type="input" name="userid" size="50" value="dpitt" />
+				  </br> Admin Password <input id="deactivateadminpassword" type="input" name="password" size="50" value="password" /> 
+				  </br> User id to deactivate<input id="deactivateid" type="input" name="userid" size="50"/>
+				  </br> <input id="deactivate" type="submit" name="submit" />
+		</form>
+		
+		
 		<br /> <b>Invoke Authenticated Endpoint (Token Required)</b> </br>
 
 		<form enctype="multipart/form-data" method="get"
@@ -276,26 +320,12 @@
 				value="dpitt@keyholesoftware.com" readonly="true" /> </br> Enter Token <input
 				id="token-a" type="input" name="token" size="50" /> </br> @Endpoint <input
 				id="endpoint-a" type="input" name="endpoint" size="50"
-				value="AuthenticatedService" /> </br> Method <input id="action-a"
-				type="input" name="action" size="50" value="thirtyDays" /> </br> </br> <input
+				value="AuthenticatedService" /> </br> Method 
+				<input id="action-a" type="input" name="action" size="50" value="departments" /> </br> </br> <input
 				id="authenticated-endpoint" type="submit" name="submit" />
 		</form>
 
 	
-
-
-		</br> <b>Reverse service example</b></br>
-		<form enctype="multipart/form-data" method="get"
-			action="SherpaServlet">
-
-			@Endpoint Service class <input type="input" name="endpoint" size="50"
-				value="TestService" /> </br> Method Name <input type="input"
-				name="action" size="50" value="reverse" /> </br> Parameter <input
-				type="input" name="value" size="50" /> </br> <input type="submit"
-				name="submit" />
-
-		</form>
-
 		
 		</br>
 
