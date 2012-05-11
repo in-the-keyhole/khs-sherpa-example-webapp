@@ -51,6 +51,7 @@ Two end point definitions have been defined in the com.khs.example.endpoints pac
 
 	StockService - Returns price quote information for a stock ticker
 	TestService -  Various example endpoints that test parameter types
+	AuthenticatedService - Example service endpoint requiring authentication
 
 
 
