@@ -133,10 +133,10 @@
 						function() {
 							service = $("#datesendpoint").val();
 							method = $("#datesaction").val();
-							date = $("#date").val();
-							days = $("#days").val();
+							begin = $("#begin").val();
+							end = $("#end").val();
 							url = "sherpa?endpoint=" + service + "&action="
-									+ method + "&date="+date+"&days="+days;
+									+ method + "&begin="+begin+"&end="+end;
 							callServerEndpoint(url, "#output");
 							return false;
 						});
@@ -195,6 +195,18 @@
 							callServerEndpoint(url, "#output");
 							return false;
 						});
+				
+				$("#encode-endpoint").click(
+						function() {
+							endpoint = $("#encodeendpoint").val();
+							method = $("#encodemethod").val();
+							value = $("#encodevalue").val();					
+							url = "sherpa?endpoint=" + endpoint + "&action="
+									+ method + "&value=" + value;
+							callServerEndpoint(url, "#output");
+							return false;
+						});				
+				
 
 			});
 </script>
@@ -265,17 +277,17 @@
 		</form>
 		
 		
-		<!-- Add days to a date -->
+		<!-- Days between dates -->
 
-		</br> <b>Add days to a date</b> </br>
+		</br> <b>Days between dates</b> </br>
 
 			@Endpoint Service class <input type="input" id="datesendpoint" name="endpoint" size="50" value="TestService" />
 				 </br>
-			 Method <input type="input" id="datesaction" name="datesaction" size="50" value="addDays" /> 
+			 Method <input type="input" id="datesaction" name="datesaction" size="50" value="diffDates" /> 
 			    </br>
-			Date <input type="input" id="date" name="date" size="50" value="04/05/2012"/>
+			Begin Date <input type="input" id="begin" name="begin" size="50" value="04/05/2012"/>
 			      </br>
-			Days to add <input type="input" id="days" name=days" size="50" value="365"/>
+			End Date <input type="input" id="end" name="end" size="50" value="04/05/2012"/>
 			     </br> 
 			<input id="dates" type="submit" name="submit" />
 
@@ -283,7 +295,7 @@
 
 		<br /> <b>Get Authentication Token</b></br>
 		<form enctype="multipart/form-data" method="get"
-			action="SherpaServlet">
+			action="sherpa">
 			Method <input id="action" type="input" name="action" size="50"
 				value="authenticate" readonly="true" /> </br> User id <input id="userid"
 				type="input" name="userid" size="50"
@@ -315,19 +327,29 @@
 		<br /> <b>Invoke Authenticated Endpoint (Token Required)</b> </br>
 
 		<form enctype="multipart/form-data" method="get"
-			action="SherpaServlet">
+			action="sherpa">
 			User id <input id="userid-a" type="input" name="userid" size="50"
-				value="dpitt@keyholesoftware.com" readonly="true" /> </br> Enter Token <input
+				value="dpitt" readonly="true" /> </br> Enter Token <input
 				id="token-a" type="input" name="token" size="50" /> </br> @Endpoint <input
 				id="endpoint-a" type="input" name="endpoint" size="50"
 				value="AuthenticatedService" /> </br> Method 
 				<input id="action-a" type="input" name="action" size="50" value="departments" /> </br> </br> <input
 				id="authenticated-endpoint" type="submit" name="submit" />
-		</form>
-
-	
-		
+		</form>	
 		</br>
+
+		<br /> <b>XSS Encoding Example</b> </br>
+
+		<form enctype="multipart/form-data" method="get"
+			action="sherpa">
+			@Endpoint Service Class <input id="encodeendpoint" type="input" name="encodeendpoint" size="50" value="TestService" readonly="true" /> </br>
+			Method <input id="encodemethod" type="input" name="method" size="50" readonly="true" value="encode"/> </br>
+			Value <textarea rows="5" cols="50" id="encodevalue" name="encodevalue"><script>alert('hello world');</script></textarea> </br> 		
+			<input id="encode-endpoint" type="submit" name="submit" />
+		</form>	
+		</br>
+
+
 
 
 	</div>

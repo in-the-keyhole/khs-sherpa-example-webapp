@@ -3,7 +3,9 @@ package com.khs.example.endpoints;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.xml.transform.Result;
 
+import com.khs.sherpa.annotation.Encode;
 import com.khs.sherpa.annotation.Endpoint;
 import com.khs.sherpa.annotation.Param;
 
@@ -48,10 +50,13 @@ public class TestService {
 		
 	}
 	
+
+	public Result encode(@Param(name="value") String value) {
+		return new Result(value);
+		
+	}
 	
-	
-	
-	
+
 	
 	class Result {	
 		public Result(Object o) {

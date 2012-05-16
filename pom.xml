@@ -17,13 +17,13 @@
    <dependency>
     <artifactId>khs-sherpa</artifactId>
     <groupId>com.keyholesoftware</groupId>
-    <version>1.1</version>
+    <version>1.1.1-SNAPSHOT</version>
   </dependency>
     
     
     
   </dependencies>
   <build>
-    <finalName>khs-sherpa-json-webapp</finalName>
+    <finalName>khs-sherpa-example-webapp</finalName>
   </build>
 </project>
