@@ -1,158 +1,66 @@
+<script type="text/javascript" src="util.js"></script>
 <script type="text/javascript"
 	src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="sherpa.js"></script>
+
 
 <script type="text/javascript">
-	function RealTypeOf(v) {
-		if (typeof (v) == "object") {
-			if (v === null)
-				return "null";
-			if (v.constructor == (new Array).constructor)
-				return "array";
-			if (v.constructor == (new Date).constructor)
-				return "date";
-			if (v.constructor == (new RegExp).constructor)
-				return "regex";
-			return "object";
-		}
-		return typeof (v);
+
+   <!-- call back to display JSON results
+	function output(data) {
+		$('#output').val(FormatJSON(data, ''));
 	}
 
-	function FormatJSON(oData, sIndent) {
-		if (arguments.length < 2) {
-			var sIndent = "";
-		}
-		var sIndentStyle = "    ";
-		var sDataType = RealTypeOf(oData);
-		if (sDataType == "array") {
-			if (oData.length == 0) {
-				return "[]";
-			}
-			var sHTML = "[";
-		} else {
-			var iCount = 0;
-			$.each(oData, function() {
-				iCount++;
-				return;
-			});
-			if (iCount == 0) {
-				return "{}";
-			}
-			var sHTML = "{";
-		}
-		var iCount = 0;
-		$.each(oData,
-				function(sKey, vValue) {
-					if (iCount > 0) {
-						sHTML += ",";
-					}
-					if (sDataType == "array") {
-						sHTML += ("\n" + sIndent + sIndentStyle);
-					} else {
-						sHTML += ("\n" + sIndent + sIndentStyle + "\"" + sKey
-								+ "\"" + ": ");
-					}
-
-					switch (RealTypeOf(vValue)) {
-					case "array":
-					case "object":
-						sHTML += FormatJSON(vValue, (sIndent + sIndentStyle));
-						break;
-					case "boolean":
-					case "number":
-						sHTML += vValue.toString();
-						break;
-					case "null":
-						sHTML += "null";
-						break;
-					case "string":
-						sHTML += ("\"" + vValue + "\"");
-						break;
-					default:
-						sHTML += ("TYPEOF: " + typeof (vValue));
-					}
-					iCount++;
-				});
-		if (sDataType == "array") {
-			sHTML += ("\n" + sIndent + "]");
-		} else {
-			sHTML += ("\n" + sIndent + "}");
-		}
-		return sHTML;
-	}
-</script>
-
-<script type="text/javascript">
-	function processOutput(data, outputid) {
-		y = FormatJSON(data, "");
-		$(outputid).val(y);
-	}
-
-	function callServerEndpoint(url, outputid) {
-		$.getJSON(url, function(data) {
-			processOutput(data, outputid);
-		});
-	}
-
+ 
 	$(document).ready(
 			function() {
 
 				$("#quote").click(
 						function() {
-							service = $("#service").val();
+							endpoint = $("#service").val();
 							method = $("#method").val();
-							ticker = $("#ticker").val();
-							url = "sherpa?endpoint=" + service + "&action="
-									+ method + "&ticker=" + ticker;
-							callServerEndpoint(url, "#output");
+							ticker = $("#ticker").val();							
+							$.sherpa.call({endpoint:endpoint, method:method, params: {ticker: ticker}}, output);		
 							return false;
 						});
 
 				$("#add").click(
 						function() {
-							service = $("#addendpoint").val();
+							endpoint = $("#addendpoint").val();
 							method = $("#addmethod").val();
 							x = $("#x").val();
 							y = $("#y").val();
-							url = "sherpa?endpoint=" + service + "&action="
-									+ method + "&x_value=" + x + "&y_value=" + y;
-							callServerEndpoint(url, "#output");
+							$.sherpa.call({endpoint:endpoint, method:method, params: {x_value:x, y_value:y}} , output);		
 							return false;
 						});
 	
 				$("#hw").click(
 						function() {
-							service = $("#hwendpoint").val();
+							endpoint = $("#hwendpoint").val();
 							method = $("#hwaction").val();
-							url = "sherpa?endpoint=" + service + "&action="
-									+ method;
-							callServerEndpoint(url, "#output");
+							$.sherpa.call({endpoint:endpoint, method:method } , output);		
 							return false;
 						});
 				
 				$("#dates").click(
 						function() {
-							service = $("#datesendpoint").val();
+							endpoint = $("#datesendpoint").val();
 							method = $("#datesaction").val();
 							begin = $("#begin").val();
 							end = $("#end").val();
-							url = "sherpa?endpoint=" + service + "&action="
-									+ method + "&begin="+begin+"&end="+end;
-							callServerEndpoint(url, "#output");
+							$.sherpa.call({endpoint:endpoint, method:method, params: {begin: begin, end: end} } , output);	
 							return false;
 						});
 				
 				
-				
-				
+	
 				
 				$("#authenticate").click(
 						function() {
 							method = $("#action").val();
 							userid = $("#userid").val();
 							password = $("#password").val();
-							url = "sherpa?action=" + method + "&userid="
-									+ userid + "&password=" + password;
-							callServerEndpoint(url, "#output");
+							$.sherpa.authenticate(userid, password, output);
 							return false;
 						});
 
@@ -161,26 +69,14 @@
 						function() {
 							method = $("#sessionsaction").val();
 							userid = $("#adminuserid").val();
+							token = $("#token_s").val();
 							password = $("#adminpassword").val();
-							url = "sherpa?action=" + method + "&userid="
-									+ userid + "&password=" + password;
-							callServerEndpoint(url, "#output");
+					
+							$.sherpa.call({endpoint:'Sherpa', method:method, params: {userid: userid,password:password,token:token} } , output);	
 							return false;
 						});
 				
-				
-				$("#deactivate").click(
-						function() {
-							method = $("#deactivateaction").val();
-							userid = $("#deactivateadminuserid").val();
-							password = $("#deactivateadminpassword").val();
-							deactivate = $("#deactivateid").val();
-							url = "sherpa?action=" + method + "&userid="
-									+ userid + "&password=" + password + "&deactivate="+deactivate;
-							callServerEndpoint(url, "#output");
-							return false;
-						});
-				
+								
 				
 				
 				$("#authenticated-endpoint").click(
@@ -188,11 +84,8 @@
 							endpoint = $("#endpoint-a").val();
 							method = $("#action-a").val();
 							userid = $("#userid-a").val();
-							token = $("#token-a").val();
-							url = "sherpa?endpoint=" + endpoint + "&action="
-									+ method + "&userid=" + userid + "&token="
-									+ token;
-							callServerEndpoint(url, "#output");
+							token = $("#token-a").val();			
+							$.sherpa.call({endpoint:endpoint, method:method, params: {userid: userid,password:password,token:token} } , output);	
 							return false;
 						});
 				
@@ -200,10 +93,8 @@
 						function() {
 							endpoint = $("#encodeendpoint").val();
 							method = $("#encodemethod").val();
-							value = $("#encodevalue").val();					
-							url = "sherpa?endpoint=" + endpoint + "&action="
-									+ method + "&value=" + value;
-							callServerEndpoint(url, "#output");
+							value = $("#encodevalue").val();											
+							$.sherpa.call({endpoint:endpoint, method:method, params: {value: value} } , output);	
 							return false;
 						});				
 				
@@ -310,6 +201,8 @@
 				value="sessions" readonly="true" />
 				 </br> Admin User id <input id="adminuserid" type="input" name="userid" size="50" value="dpitt" />
 				  </br> Admin Password <input id="adminpassword" type="input" name="password" size="50" value="password" /> 
+					</br> Enter Token <input id="token-s" type="input" name="token" size="50" />
+				
 				  </br> <input id="sessions" type="submit" name="submit" />
 		</form>
 		

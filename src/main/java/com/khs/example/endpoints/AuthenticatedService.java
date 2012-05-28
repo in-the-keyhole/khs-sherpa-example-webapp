@@ -3,7 +3,10 @@ package com.khs.example.endpoints;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
+
 import com.khs.sherpa.annotation.Endpoint;
+import com.khs.sherpa.annotation.Param;
 
 @Endpoint(authenticated=true)
 public class AuthenticatedService {
@@ -28,8 +31,16 @@ public class AuthenticatedService {
 		results.add(dept);
 		
 		return results;
-
 		
+	}
+	
+
+	@RolesAllowed({"admin"})
+	public Department create(@Param(name="number") int number,@Param(name="name")String name) {	
+		Department dept = new Department();
+		dept.number = number;
+		dept.name = name;		
+		return dept;		
 	}
 	
 

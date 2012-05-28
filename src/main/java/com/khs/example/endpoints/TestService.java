@@ -51,7 +51,7 @@ public class TestService {
 	}
 	
 
-	public Result encode(@Param(name="value") String value) {
+	public Result encode(@Param(name="value",format=Encode.HTML) String value) {
 		return new Result(value);
 		
 	}

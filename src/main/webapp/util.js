@@ -1,3 +1,4 @@
+<!--  Format JSON String  utility -->
 function RealTypeOf(v) {
 	if (typeof (v) == "object") {
 		if (v === null)
