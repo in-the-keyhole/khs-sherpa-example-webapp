@@ -35,7 +35,7 @@ public class AuthenticatedService {
 	}
 	
 
-	@RolesAllowed({"admin"})
+	@RolesAllowed({"SHERPA_ADMIN"})
 	public Department create(@Param(name="number") int number,@Param(name="name")String name) {	
 		Department dept = new Department();
 		dept.number = number;

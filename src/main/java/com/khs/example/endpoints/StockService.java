@@ -64,6 +64,11 @@ public class StockService {
 		return stock;
 	}
 	
+	public Stock update(@Param(name="stock") Stock stock) {
+		stock.name = "Keyhole";
+		return stock;
+	}
+	
 	
 	public List<Stock> quotes(@Param(name = "ticker1") String ticker1,@Param(name = "ticker2") String ticker2) {
 
