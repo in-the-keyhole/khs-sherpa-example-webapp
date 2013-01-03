@@ -3,26 +3,37 @@ package com.khs.example.endpoints;
 import java.util.Calendar;
 import java.util.Date;
 
-import javax.xml.transform.Result;
-
+import com.khs.sherpa.annotation.Action;
 import com.khs.sherpa.annotation.Encode;
 import com.khs.sherpa.annotation.Endpoint;
 import com.khs.sherpa.annotation.Param;
 
 @Endpoint(authenticated=false)
 public class TestService {
+
+	class Result {	
+		public Result(Object o) {
+			result = o;
+		}
+		public Object result;		
+	}
+	
+	
 	
 	// hello world  method
+	@Action
 	public Result helloWorld() {
-		return new Result("Hello World");
+		return new Result("Hello World Ladies");
 	}
 	
 	// add two numbers method
-	public Result add(@Param(name="x_value") double x, @Param(name="y_value") double y) {
+	@Action
+	public Result add(@Param("x_value") double x, @Param("y_value") double y) {
 		return new Result(x + y);
 	}
 	
-	public Result diffDates(@Param(name="begin") Date begin,@Param(name="end") Date end) {
+	@Action
+	public Result diffDates(@Param("begin") Date begin,@Param("end") Date end) {
 		
 		Calendar cal1 = Calendar.getInstance();
 		cal1.setTime(begin);
@@ -35,34 +46,32 @@ public class TestService {
 	
 	}
 	
-	public Result calendar(@Param(name="cal") Calendar cal) {
+	@Action
+	public Result calendar(@Param("cal") Calendar cal) {
 		return new Result(cal);
 	}
 	
-	public Result time(@Param(name="cal", format="hh:mm:ss a") Calendar cal) {
+	@Action
+	public Result time(@Param(value="cal", format="hh:mm:ss a") Calendar cal) {
 		return new Result(cal);
 	}
 	
 	
-	public Result bool(@Param(name="bool") boolean bool) {
+	@Action
+	public Result bool(@Param("bool") boolean bool) {
 		
 		return new Result("The Answer is "+(bool?"YES":"NO"));
 		
 	}
 	
 
-	public Result encode(@Param(name="value",format=Encode.HTML) String value) {
+	@Action
+	public Result encode(@Param(value="value",format=Encode.HTML) String value) {
 		return new Result(value);
 		
 	}
 	
 
 	
-	class Result {	
-		public Result(Object o) {
-			result = o;
-		}
-		public Object result;		
-	}
 
 }

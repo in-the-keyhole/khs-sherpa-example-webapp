@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 
+import com.khs.sherpa.annotation.Action;
 import com.khs.sherpa.annotation.Endpoint;
 import com.khs.sherpa.annotation.Param;
 
@@ -15,7 +16,8 @@ public class AuthenticatedService {
 		public int number;
 		public String name;		
 	}
-		
+	
+	@Action
 	public List<Department> departments() {
 		
 		List<Department>  results = new ArrayList<Department>();
@@ -36,7 +38,8 @@ public class AuthenticatedService {
 	
 
 	@RolesAllowed({"SHERPA_ADMIN"})
-	public Department create(@Param(name="number") int number,@Param(name="name")String name) {	
+	@Action
+	public Department create(@Param("number") int number,@Param("name")String name) {	
 		Department dept = new Department();
 		dept.number = number;
 		dept.name = name;		
