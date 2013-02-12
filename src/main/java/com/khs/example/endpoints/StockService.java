@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.khs.sherpa.annotation.Action;
 import com.khs.sherpa.annotation.Endpoint;
 import com.khs.sherpa.annotation.Param;
 
@@ -25,7 +26,15 @@ public class StockService {
 		public float pe;
 	}
 
-	public Stock quote(@Param(name = "ticker") String ticker) {
+	@Action
+	public Stock update(@Param("stock") Stock stock) {
+		
+		stock.name= "granite city";
+		return stock;
+	}
+	
+	@Action
+	public Stock quote(@Param("ticker") String ticker) {
 
 		String content = "";
 		try {
@@ -64,13 +73,9 @@ public class StockService {
 		return stock;
 	}
 	
-	public Stock update(@Param(name="stock") Stock stock) {
-		stock.name = "Keyhole";
-		return stock;
-	}
 	
-	
-	public List<Stock> quotes(@Param(name = "ticker1") String ticker1,@Param(name = "ticker2") String ticker2) {
+	@Action
+	public List<Stock> quotes(@Param("ticker1") String ticker1,@Param("ticker2") String ticker2) {
 
 	    List results = new ArrayList<Stock>();
 
@@ -80,8 +85,8 @@ public class StockService {
 		return results;
 	}
 	
-	
-	public List<Stock> test(@Param(name = "tickers") List<Stock> tickers) {
+	@Action
+	public List<Stock> test(@Param("tickers") List<Stock> tickers) {
 	
 		return tickers;
 		

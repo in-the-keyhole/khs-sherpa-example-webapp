@@ -1,6 +1,9 @@
 package com.khs.example.authentication.service;
 
-import com.khs.sherpa.json.service.AuthenticationException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.khs.sherpa.exception.SherpaInvalidUsernamePassword;
 import com.khs.sherpa.json.service.UserService;
 
 /** 
@@ -16,16 +19,17 @@ import com.khs.sherpa.json.service.UserService;
 
 public class TestUserService implements UserService {
 
-	public String[] authenticate(String userid, String password)
-			throws AuthenticationException {
+	public String[] authenticate(String userid, String password,HttpServletRequest request, HttpServletResponse response)
+			throws SherpaInvalidUsernamePassword {
 		// only valid userid password
 		if ("dpitt".equals(userid) && "password".equals(password)) {
 			return new String[]{"SHERPA_ADMIN"};
 		}
 		
-		throw new AuthenticationException();
+		throw new SherpaInvalidUsernamePassword();
 		
 	}
-	
+
+
 
 }
